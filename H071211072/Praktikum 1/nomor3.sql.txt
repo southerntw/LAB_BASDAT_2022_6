@@ -1,0 +1,4 @@
+mysql> alter table offices
+    -> modify column phone int(20);
+Query OK, 0 rows affected (1.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0

@@ -1,0 +1,4 @@
+mysql> alter table offices
+    -> drop column addresline2;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
