@@ -12,10 +12,10 @@ SELECT DISTINCT productLine
 FROM products;
 
 /*Nomor 4*/
-SELECT customerNumber,customerName 
+SELECT customerNumber AS idCustomer, customerName AS nama
 FROM customers 
 WHERE customerNumber 
-BETWEEN 103 AND 150;
+BETWEEN 100 AND 150;
 
 /*Nomor 5*/
 SELECT*FROM customers 
