@@ -1,0 +1,11 @@
+USE classicmodels;
+
+#select * from offices where city = "san francisco";
+
+#select * from orderdetails where quantityOrdered > 70 order by orderLineNumber asc;
+
+#select distinct productline from products;
+
+#select customerNumber as 'nomor customer' , customerName as 'nama customer' from customers where customerNumber >= 100 and customerNumber <= 150;
+
+#select * from customers where country !="USA" and creditLimit > 0 order by customerName asc limit 10,10;

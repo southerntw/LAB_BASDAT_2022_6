@@ -1,0 +1,13 @@
+mysql> desc offices;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| officeCode  | varchar(10) | NO   | PRI | NULL    |       |
+| city        | varchar(50) | NO   |     | NULL    |       |
+| phone       | varchar(50) | NO   |     | NULL    |       |
+| addresline1 | varchar(50) | NO   |     | NULL    |       |
+| addresline2 | varchar(50) | YES  |     | NULL    |       |
+| state       | varchar(50) | YES  |     | NULL    |       |
+| country     | varchar(50) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.16 sec)
