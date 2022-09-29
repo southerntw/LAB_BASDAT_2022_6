@@ -1,0 +1,1 @@
+SELECT DISTINCT productline FROM products

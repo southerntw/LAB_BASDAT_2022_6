@@ -1,0 +1,1 @@
+SELECT * FROM orderdetails WHERE quantityordered>70 ORDER BY orderlinenumber;

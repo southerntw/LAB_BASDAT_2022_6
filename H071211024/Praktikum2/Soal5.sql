@@ -1,0 +1,1 @@
+SELECT * FROM customers WHERE country!='USA' ORDER BY customername ASC LIMIT 9, 10 

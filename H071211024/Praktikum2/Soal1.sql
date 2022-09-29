@@ -1,0 +1,1 @@
+SELECT * FROM offices WHERE city='San Francisco';
