@@ -1,0 +1,1 @@
+SELECT customernumber AS 'Number', customername AS 'Name' FROM customers WHERE customernumber BETWEEN 100 AND 150;
