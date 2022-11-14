@@ -1,35 +1,44 @@
-USE classicmodels;
 -- nomor 1
-SELECT customers.customerName AS "Customer Name", (SELECT MAX(amount) FROM payments 
-WHERE customers.customerNumber = payments.customerNumber) AS "Max Payment", (SELECT MIN(amount) FROM payments 
-WHERE customers.customerNumber = payments.customerNumber) AS "Min Payment" FROM customers;
+SELECT customers.customerName AS "Customer Name",
+(SELECT MAX(amount) FROM payments WHERE customers.customerNumber = payments.customerNumber) AS "Max Payment", 
+(SELECT MIN(amount) FROM payments WHERE customers.customerNumber = payments.customerNumber) AS "Min Payment" FROM customers HAVING `Max Payment` IS NOT NULL;
 
 -- nomor 2
-SELECT GROUP_CONCAT(concat(firstName, " ", lastName) SEPARATOR ",") AS "Daftar Nama", employees.officeCode AS "ID Kantor" FROM employees
-GROUP BY officeCode
-having count(officecode)=(select max(ecount)
-from (select count(officeCode) as ecount from employees GROUP BY officecode )
-as e1 );
+SELECT concat(firstName, " ", lastName)  AS "Daftar Nama", employees.officeCode AS "ID Kantor" FROM employees
+WHERE officecode = (select officecode FROM employees GROUP BY officeCode order by count(officeCode) desc limit 1);
+
 
 -- nomor 3
-SELECT ProductName,productScale FROM products WHERE productName IN ( SELECT productName from products where productName like "%Ford%"); 
+SELECT ProductName,productScale FROM products p1 WHERE productName IN ( SELECT productName from products where productName like "%Ford%"); -- AND productline =p1.productLine
 
 -- nomor 4
-select customers.customerName as 'Nama Pelanggan',concat(employees.firstName, " ", employees.lastName) AS 'Nama Karyawan', p1.checkNumber, p1.amount from employees 
+select customers.customerName as 'Nama Pelanggan',concat(employees.firstName, " ", employees.lastName) AS 'Nama Karyawan', orders.orderNumber,SUM(od.priceEach*od.quantityOrdered) as 'Total Order' from employees 
 join customers
 on employees.employeeNumber = customers.salesRepEmployeeNumber
-join payments p1
-on p1.customerNumber = customers.customerNumber
-where amount IN (SELECT MAX(amount) From payments);
+join orders
+on  customers.customerNumber = orders.customerNumber
+join orderdetails od
+on orders.orderNumber = od.orderNumber
+GROUP BY od.orderNumber
+HAVING SUM(od.priceEach*od.quantityOrdered) = 
+(SELECT max(`Total Order`) FROM (SELECT SUM(orderdetails.priceEach*orderdetails.quantityOrdered) AS "Total Order" from orderdetails GROUP BY orderNumber) as a);
+
+
 
 -- nomor 5
-SELECT Country,CHAR_LENGTH(Country) AS "Panjang Karakter"
-FROM offices 
-WHERE CHAR_LENGTH(Country) IN (
-  SELECT MAX(CHAR_LENGTH(Country))
-  FROM offices
-  UNION
-  SELECT MIN(CHAR_LENGTH(Country))
-  FROM offices
-);
+SELECT DISTINCT Country,CHAR_LENGTH(Country) AS "Panjang Karakter"
+FROM customers
+GROUP BY country
+HAVING CHAR_LENGTH(Country) =(SELECT MAX(CHAR_LENGTH(Country)) FROM customers) 
+OR  CHAR_LENGTH(Country) =(SELECT MIN(CHAR_LENGTH(Country)) FROM customers) 
+ORDER BY `Panjang karakter` DESC;
+  
+  
+  
+
+
+
+
+
+
 
